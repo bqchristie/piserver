@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        async function  handleBlinkClicked() {
+            const response = await fetch("/gpio/blink", {method:'POST'});
+            const json = await response.json();
+            console.log(json);
+        }
+    </script>
+</head>
+<body>
+  <h1>Piserver</h1>
+  <div class="command-section">
+      <h2>Blink Light</h2>
+      <button onclick="handleBlinkClicked()">Blink</button>
+  </div>
+
+
+</body>
+</html>
