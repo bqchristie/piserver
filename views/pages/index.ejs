@@ -7,19 +7,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script>
+        async function  handlePiInfoClicked() {
+            const response = await fetch("/pi/info", {method:'GET'});
+            const json = await response.json();
+            console.log(json);
+            const el = document.querySelector("#pi-info pre code")
+            el.innerHTML = JSON.stringify(json, null, 3)
+        }
+
         async function  handleBlinkClicked() {
             const response = await fetch("/gpio/blink", {method:'POST'});
             const json = await response.json();
             console.log(json);
         }
 
-        async function  handlePiInfoClicked() {
-            const response = await fetch("/pi/info", {method:'GET'});
-            const json = await response.json();
-            console.log(json);
-            const el = document.querySelector("#pi-info pre code")
-            el.innerHTML = JSON.stringify(json)
-        }
+
     </script>
 </head>
 <body>
