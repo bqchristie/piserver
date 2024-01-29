@@ -17,6 +17,8 @@
             const response = await fetch("/pi/info", {method:'GET'});
             const json = await response.json();
             console.log(json);
+            const el = document.querySelector("#pi-info pre code")
+            el.innerHTML = JSON.stringify(json)
         }
     </script>
 </head>
@@ -25,6 +27,11 @@
   <div class="command-section">
       <h2>Pi Info</h2>
       <button onclick="handlePiInfoClicked()">Blink</button>
+      <div id="pi-info">
+          <pre>
+              <code></code>
+          </pre>
+      </div>
   </div>
 
   <div class="command-section">

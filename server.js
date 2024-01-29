@@ -1,6 +1,7 @@
 const express = require('express')
 const Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
 const raspiInfo = require('raspberry-info');
+const {response} = require("express");
 const app = express()
 const port = 3000
 
@@ -15,17 +16,22 @@ app.get('/', function(req, res) {
 });
 
 app.get('/pi/info', async function (req, res) {
-    const data = {timeAndHost : await raspiInfo.getCurrentTimeAndHost(),
-        gpu: await raspiInfo.getGPUTemperature(),
-        cpu: await raspiInfo.getCPUTemperature(),
-        serialNumber: await raspiInfo.getSerialNumber(),
-        ip: await raspiInfo.getIP(),
-        totalMemory: await raspiInfo.getMemoryTotal(),
-        freeMemory: await raspiInfo.getMemoryFree(),
-        availableMemory: await raspiInfo.getMemoryAvailable(),
-        memoryUsage: await raspiInfo.getMemoryUsage()
+    try {
+        const data = {timeAndHost : await raspiInfo.getCurrentTimeAndHost(),
+            gpu: await raspiInfo.getGPUTemperature(),
+            cpu: await raspiInfo.getCPUTemperature(),
+            serialNumber: await raspiInfo.getSerialNumber(),
+            ip: await raspiInfo.getIP(),
+            totalMemory: await raspiInfo.getMemoryTotal(),
+            freeMemory: await raspiInfo.getMemoryFree(),
+            availableMemory: await raspiInfo.getMemoryAvailable(),
+            memoryUsage: await raspiInfo.getMemoryUsage()
+        }
+        res.send(data);
+    } catch (err) {
+        res.send({message: 'Error getting pi info', error: err});
     }
-    res.send(data);
+
 })
 
 app.post('/gpio/blink', function(req, res) {
