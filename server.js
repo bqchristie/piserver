@@ -1,5 +1,6 @@
 const express = require('express')
-var Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
+const Gpio = require('onoff').Gpio; //include onoff to interact with the GPIO
+const raspiInfo = require('raspberry-info');
 const app = express()
 const port = 3000
 
@@ -12,6 +13,11 @@ app.set('view engine', 'ejs');
 app.get('/', function(req, res) {
     res.render('pages/index');
 });
+
+app.get('/pi/info', async function (req, res) {
+    const data = await raspiInfo.getCurrentTimeAndHost();
+    res.send(data);
+})
 
 app.post('/gpio/blink', function(req, res) {
     try {
