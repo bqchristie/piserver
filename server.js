@@ -15,7 +15,16 @@ app.get('/', function(req, res) {
 });
 
 app.get('/pi/info', async function (req, res) {
-    const data = await raspiInfo.getCurrentTimeAndHost();
+    const data = {timeAndHost : await raspiInfo.getCurrentTimeAndHost(),
+        gpu: await raspiInfo.getGPUTemperature(),
+        cpu: await raspiInfo.getCPUTemperature(),
+        serialNumber: await raspiInfo.getSerialNumber(),
+        ip: await raspiInfo.getIP(),
+        totalMemory: await raspiInfo.getMemoryTotal(),
+        freeMemory: await raspiInfo.getMemoryFree(),
+        availableMemory: await raspiInfo.getMemoryAvailable(),
+        memoryUsage: await raspiInfo.getMemoryUsage()
+    }
     res.send(data);
 })
 
