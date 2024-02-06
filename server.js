@@ -37,7 +37,7 @@ app.get('/pi/info', async function (req, res) {
 app.post('/gpio/blink', function(req, res) {
     try {
 
-        var LED = new Gpio(13, 'out'); //use GPIO pin 4, and specify that it is output
+        var LED = new Gpio(19, 'out'); //use GPIO pin 4, and specify that it is output
         var blinkInterval = setInterval(blinkLED, 250); //run the blinkLED function every 250ms
 
 
